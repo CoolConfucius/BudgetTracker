@@ -37,9 +37,9 @@ function init(){
   $add.click(hitAdd);
   $newCredit.click(hitNewCredit);
   $newDebit.click(hitNewDebit);
-  // $showAll.click(hitShowAll);
+  $showAll.click(hitShowAll);
   $showCredit.click(hitShowCredit);
-  // $showDebit.click(hitShowDebit);
+  $showDebit.click(hitShowDebit);
   $removeSelected.click(hitRemoveSelected);
   $body.on('click', '.check',(hitCheck)); 
   $body.on('click', '.delete',(hitDelete)); 
@@ -105,18 +105,36 @@ function hitRemoveSelected(event){
   });
 };
 
+function hitShowAll(event){
+  var $item = $('.item');
+  $item.removeClass('hide');
+  // $item.each(function(index){
+  //   if ($item.eq(index).children(".type").text()!=='credit') {
+  //     $item.eq(index).addClass('hide');
+  //   };
+  // })
+};
+
 function hitShowCredit(event){
   var $item = $('.item');
   $item.each(function(index){
-    if ($item.eq(index).children('.type').text()!=='credit') {
-      $item.addClass('hide');
+    if ($item.eq(index).children(".type").text()!=='credit') {
+      $item.eq(index).addClass('hide');
+    } else {
+      $item.eq(index).removeClass('hide');
     };
   })
-  // $newCredit.toggleClass('pressed'); 
-  // if ($newDebit.hasClass('pressed')) {
-  //   $newDebit.removeClass('pressed');
-  // };
-  // newType = "credit";
+};
+
+function hitShowDebit(event){
+  var $item = $('.item');
+  $item.each(function(index){
+    if ($item.eq(index).children(".type").text()!=='debit') {
+      $item.eq(index).addClass('hide');
+    } else {
+      $item.eq(index).removeClass('hide');
+    }
+  })
 };
 
 
