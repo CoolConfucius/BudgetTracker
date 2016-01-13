@@ -105,7 +105,6 @@ function hitCheck(event){
 function hitDelete(event){
   var $this = $(this);
   var $parent = $this.parent(); 
-  console.log("parseFloat: ", parseFloat($parent.children(".amount").text().substr(1)));
   if ($parent.children(".type").text()==="credit") {
     balance = (parseFloat(balance) - parseFloat($parent.children(".amount").text().substr(1)) ).toFixed(2).toString();
   } else {
@@ -180,7 +179,6 @@ function hitEdit(event){
     editAmount = $parent.children(".amount").text().substr(1); 
     editDate = $parent.children(".date").text(); 
     editNote = $parent.children(".note").text(); 
-    console.log("defaults: ", editType, editAmount, editDate, editNote);
 
     var $editForm = $('<div>').addClass('row editing');
     var $editNote = $('<div>').addClass('row editing');
@@ -220,42 +218,38 @@ function hitEditDebit(event){
 
 
 function hitEditConfirm(event){
-  console.log("editType: ", editType);
   var $previousType = $("#previousType");
   var $previousAmount = $("#previousAmount");
-  console.log("previousType", $previousType.text());
-  console.log('previousAmount: ',parseFloat($("#previousAmount") .text().substr(1)) );
-  console.log('previousAmount: ',parseFloat($("#previousAmount") .text() ) );
   var workingBalance = parseFloat(balance);
-  console.log("workingBalance", workingBalance);
   if ($previousType.text()==="credit") {
     workingBalance -= parseFloat($("#previousAmount") .text().substr(1));
   } else {
     workingBalance += parseFloat($("#previousAmount") .text().substr(1));
   }
   $previousType.text(editType);
-  console.log("workingBalance", workingBalance);
   if (editType==="credit") {
     workingBalance += parseFloat($('#editAmount').val()) ;
   } else {
     workingBalance -= parseFloat($('#editAmount').val()) ;
   }
-  console.log("editAmount: ", $('#editAmount').val());
-  console.log("workingBalance", workingBalance);
+
   $previousAmount.text('$'+$('#editAmount').val().toString());
 
 
   balance = workingBalance.toFixed(2).toString();
   $balance.text(balance);
-  console.log("neweditamount: ", editAmount);
-  $("#previous").children(".type").text(editType);
-  $("#previous").children(".date").text(editDate);
-  $("#previous").children(".note").text(editNote);
+  $previousType.text(editType);
+  $("#previousDate").text(editDate);
+  $("#previousNote").text(editNote);
 
 
 
 
-  $("#previousAmount").removeAttr("id");
+  $previousType.removeAttr("id");
+  $previousAmount.removeAttr("id");
+  $("#previousDate").removeAttr("id");
+  $("#previousNote").removeAttr("id");
+  $("#previous").removeAttr("id"); 
   $(".isEditing").removeClass(".isEditing");
   $(".editing").remove(); 
 
@@ -268,7 +262,6 @@ function hitEditConfirm(event){
 function hitSortAlpha(event){
   var $sortedBody = $('<div>').addClass('container');
   var $item = $('.item');
-  console.log($item);
   $item.each(function(index){
     var $sortedRow = $('<div>').addClass('row item');
     $sortedRow.append($('<div>').addClass('col-md-5').text('yolo') );
