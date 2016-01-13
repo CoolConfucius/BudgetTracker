@@ -208,17 +208,23 @@ function hitEditDebit(event){
 
 function hitEditConfirm(event){
   //if (true) {};
+  console.log('previousAmount: ',parseFloat($("#previousAmount") .text().substr(1)) );
+  var workingBalance = parseFloat(balance);
+  console.log("workingBalance", workingBalance);
   if ($("#previousType").text()==="credit") {
-    balance = (parseFloat(balance) - parseFloat($("#previousAmount") .text().substr(1)) ).toFixed(2).toString();
+    workingBalance -= parseFloat($("#previousAmount") .text().substr(1));
   } else {
-    balance = (parseFloat(balance) + parseFloat($("#previousAmount") .text().substr(1)) ).toFixed(2).toString();
+    workingBalance += parseFloat($("#previousAmount") .text().substr(1));
   }
-
+  console.log("workingBalance", workingBalance);
   if (editType==="credit") {
-    balance = (parseFloat(balance) + parseFloat($('#editAmount').text().substr(1)) ).toFixed(2).toString();
+    workingBalance += parseFloat($('#editAmount').val()) ;
   } else {
-    balance = (parseFloat(balance) - parseFloat($('#editAmount').text().substr(1)) ).toFixed(2).toString();
+    workingBalance -= parseFloat($('#editAmount').val()) ;
   }
+  console.log("editAmount: ", $('#editAmount').val());
+  console.log("workingBalance", workingBalance);
+  balance = workingBalance.toFixed(2).toString();
   $balance.text(balance);
   editType = '';
   $(".editing").remove(); 
