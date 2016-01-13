@@ -45,6 +45,7 @@ function init(){
   $removeSelected.click(hitRemoveSelected);
   $body.on('click', '.check',(hitCheck)); 
   $body.on('click', '.delete',(hitDelete)); 
+  $body.on('click', '.edit',(hitEdit)); 
   $sortAlpha.click(hitSortAlpha);
 };
 
@@ -108,6 +109,32 @@ function hitDelete(event){
   }
   $balance.text(balance);
   $this.parent().remove(); 
+};
+
+function hitEdit(event){
+  var $this = $(this);
+  $this.addClass()
+  var $parent = $this.parent(); 
+  var $editForm = $('<div>').addClass('row');
+  var $editNote = $('<div>').addClass('row');
+  $editForm.append($('<span>').addClass('col-sm-1').text('Type:'));
+  $editForm.append($('<div>').addClass('col-sm-1 btn btn-default').text('Credit').attr("id", "editCredit"));
+  $editForm.append($('<div>').addClass('col-sm-1 btn btn-default').text('Debit').attr("id", "editDebit"));
+  $editForm.append($('<span>').addClass('col-sm-2').text('Amount:'));
+  $editForm.append($('<input>').addClass('col-sm-2').attr({type: "number", step: "0.01", value: "0.00", min: "0.00", id: "editAmount"} ) );
+  $editForm.append($('<span>').addClass('col-sm-2').text('Date:'));
+  $editForm.append($('<input>').addClass('col-sm-3').attr({type: "date", id: "editDate"} ) );
+
+  $this.after($editForm);
+
+  // console.log("parseFloat: ", parseFloat($parent.children(".amount").text().substr(1)));
+  // if ($parent.children(".type").text()==="credit") {
+  //   balance = (parseFloat(balance) - parseFloat($parent.children(".amount").text().substr(1)) ).toFixed(2).toString();
+  // } else {
+  //   balance = (parseFloat(balance) + parseFloat($parent.children(".amount").text().substr(1)) ).toFixed(2).toString();
+  // }
+  // $balance.text(balance);
+  // $this.parent().remove(); 
 };
 
 function hitRemoveSelected(event){
