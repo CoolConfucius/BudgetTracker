@@ -1,5 +1,4 @@
 *{
-  /*border: 1px solid;*/
   font-size: 16px; 
   line-height: 1.5; 
 
@@ -96,9 +95,6 @@ input[type=checkbox] {
 .editing span{
   background-color: #CFE89E;
 }
-/*#body .editing input{
-  background-color: #CFE89E;
-}*/
 
 .pressed {
   background-color: #90C3D4; 
