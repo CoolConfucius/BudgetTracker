@@ -85,13 +85,6 @@ input[type=checkbox] {
     background-color: #AEBEBF;   
 }
 
-.pressed {
-  background-color: #90C3D4; 
-}
-
-.pressed:hover {
-  background-color: #73A8BA; 
-};
 
 .hide {
   display: none; 
@@ -106,3 +99,11 @@ input[type=checkbox] {
 /*#body .editing input{
   background-color: #CFE89E;
 }*/
+
+.pressed {
+  background-color: #90C3D4; 
+}
+
+.pressed:hover {
+  background-color: #73A8BA; 
+};

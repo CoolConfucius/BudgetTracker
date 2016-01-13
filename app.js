@@ -47,6 +47,8 @@ function init(){
   $body.on('click', '.check',(hitCheck)); 
   $body.on('click', '.delete',(hitDelete)); 
   $body.on('click', '.edit',(hitEdit)); 
+  $body.on('click', '#editCredit',(hitEditCredit)); 
+  $body.on('click', '#editDebit',(hitEditDebit)); 
   $body.on('click', '#editConfirm',(hitEditConfirm)); 
   $sortAlpha.click(hitSortAlpha);
 };
@@ -158,6 +160,7 @@ function hitShowDebit(event){
 function hitEdit(event){
   var $this = $(this);
   if ($this.hasClass("isEditing")) {
+    editType = '';
     $('.editing').remove(); 
     $this.removeClass("isEditing");
   } else {
@@ -182,19 +185,42 @@ function hitEdit(event){
   }
 };
 
+function hitEditCredit(event){
+  var $editCredit = $("#editCredit");
+  var $editDebit = $("#editDebit");
+  $editCredit.toggleClass('pressed'); 
+  if ($editDebit.hasClass('pressed')) {
+    $editDebit.removeClass('pressed');
+  };
+  editType = "debit";
+};
+
+function hitEditDebit(event){
+  var $editDebit = $("#editDebit");
+  var $editCredit = $("#editCredit");
+  $editDebit.toggleClass('pressed'); 
+  if ($editCredit.hasClass('pressed')) {
+    $editCredit.removeClass('pressed');
+  };
+  editType = "debit";
+};
+
+
 function hitEditConfirm(event){
+  //if (true) {};
   if ($("#previousType").text()==="credit") {
     balance = (parseFloat(balance) - parseFloat($("#previousAmount") .text().substr(1)) ).toFixed(2).toString();
   } else {
     balance = (parseFloat(balance) + parseFloat($("#previousAmount") .text().substr(1)) ).toFixed(2).toString();
   }
 
-  if ($("#editType").text()==="credit") {
+  if (editType==="credit") {
     balance = (parseFloat(balance) + parseFloat($('#editAmount').text().substr(1)) ).toFixed(2).toString();
   } else {
     balance = (parseFloat(balance) - parseFloat($('#editAmount').text().substr(1)) ).toFixed(2).toString();
   }
   $balance.text(balance);
+  editType = '';
   $(".editing").remove(); 
   $(".isEditing").removeClass(".isEditing");
 };
