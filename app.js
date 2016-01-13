@@ -9,7 +9,7 @@ var $newAmount;
 var $newCredit; 
 var $newDebit; 
 var newType = ''; 
-var editType = '';
+var editType, editAmount, editDate, editNote;
 var $body; 
 var $removeSelected; 
 var $sortAlpha; 
@@ -18,6 +18,7 @@ var balance = '1000';
 var $showAll;
 var $showCredit;
 var $showDebit;
+var editingTransaction = false; 
 
 
 function init(){
@@ -165,14 +166,21 @@ function hitEdit(event){
     $parent.children(".amount").removeAttr("id");
     $('.editing').remove(); 
     $this.removeClass("isEditing");
-  } else {
+    editingTransaction = false; 
+  } else if(!editingTransaction) {
+    editingTransaction = true; 
     $this.addClass("isEditing")
+    $parent.attr("id", "previous"); 
     $parent.children(".type").attr("id", "previousType");
     $parent.children(".amount").attr("id", "previousAmount");
     $parent.children(".date").attr("id", "previousDate");
     $parent.children(".note").attr("id", "previousNote");
 
     editType = $parent.children(".type").text(); 
+    editAmount = $parent.children(".amount").text().substr(1); 
+    editDate = $parent.children(".date").text(); 
+    editNote = $parent.children(".note").text(); 
+    console.log("defaults: ", editType, editAmount, editDate, editNote);
 
     var $editForm = $('<div>').addClass('row editing');
     var $editNote = $('<div>').addClass('row editing');
@@ -215,6 +223,7 @@ function hitEditConfirm(event){
   //if (true) {};
   console.log("editType: ", editType);
   var $previousType = $("#previousType");
+  var $previousAmount = $("#previousAmount");
   console.log("previousType", $previousType.text());
   console.log('previousAmount: ',parseFloat($("#previousAmount") .text().substr(1)) );
   console.log('previousAmount: ',parseFloat($("#previousAmount") .text() ) );
@@ -229,21 +238,37 @@ function hitEditConfirm(event){
   console.log("workingBalance", workingBalance);
   if (editType==="credit") {
     workingBalance += parseFloat($('#editAmount').val()) ;
+    // workingBalance += parseFloat(editAmount) ;
   } else {
     workingBalance -= parseFloat($('#editAmount').val()) ;
+    // workingBalance -= parseFloat(editAmount) ;
   }
   console.log("editAmount: ", $('#editAmount').val());
   console.log("workingBalance", workingBalance);
+  $previousAmount.text('$'+$('#editAmount').val().toString());
+
+
   balance = workingBalance.toFixed(2).toString();
   $balance.text(balance);
-  editType = '';
-  $previousType.removeAttr("id");
+  console.log("neweditamount: ", editAmount);
+  $("#previous").children(".type").text(editType);
+  // $("#previous").children(".amount").text(editAmount);
+  $("#previous").children(".date").text(editDate);
+  $("#previous").children(".note").text(editNote);
+
+
+  // editType = '';
+  // $previousType.removeAttr("id");
+
+
 
 
 
   $("#previousAmount").removeAttr("id");
   $(".isEditing").removeClass(".isEditing");
   $(".editing").remove(); 
+
+  editingTransaction = false; 
 };
 
 
