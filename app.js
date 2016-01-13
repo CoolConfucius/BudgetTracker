@@ -3,7 +3,7 @@
 $(document).ready(init); 
 
 var $add; 
-var $newMessage;
+var $newNote;
 var $newDate; 
 var $newAmount; 
 var $newCredit; 
@@ -19,13 +19,12 @@ var $showAll;
 var $showCredit;
 var $showDebit;
 
-// var now = moment().format("MM-DD-YYYY"); 
 
 function init(){
   var currentDate = moment().format('YYYY-MM-DD');
   $balance = $('#balance');
   $add = $('#add'); 
-  $newMessage = $("#newMessage");
+  $newNote = $("#newNote");
   $newDate = $("#newDate");
   $newDate.attr('min', currentDate);
   $newAmount = $("#newAmount");
@@ -70,10 +69,10 @@ function hitNewDebit(event){
 };
 
 function hitAdd(event){
-  // if (!newType || $newAmount.val() < 0.01) { return };
+  if (!newType || $newAmount.val() < 0.01) { return };
   var $toAddRow = $('<div>').addClass('row item'); 
-  $toAddRow.append($('<div>').addClass('col-md-5').text($newMessage.val() ) );
-  $toAddRow.append($('<div>').addClass('col-md-2').text($newDate.val()) ); 
+  $toAddRow.append($('<div>').addClass('col-md-5 note').text($newNote.val() ) );
+  $toAddRow.append($('<div>').addClass('col-md-2 date').text($newDate.val()) ); 
   $toAddRow.append($('<div>').addClass('col-md-1 type').text( newType) ); 
   $toAddRow.append($('<div>').addClass('col-md-1 amount').text('$'+(parseFloat($newAmount.val()).toFixed(2))) ); 
   $toAddRow.append($('<input />', { type: 'checkbox'}).addClass('col-md-1 check')); 
@@ -89,7 +88,7 @@ function hitAdd(event){
     $newDebit.removeClass('pressed');
   }
   $balance.text(balance);
-  $newMessage.val('');
+  $newNote.val('');
   $newDate.val('');
   $newAmount.val('0.00');
   newType = '';
@@ -159,15 +158,21 @@ function hitShowDebit(event){
 
 function hitEdit(event){
   var $this = $(this);
+  var $parent = $this.parent(); 
   if ($this.hasClass("isEditing")) {
     editType = '';
+    $parent.children(".type").removeAttr("id");
+    $parent.children(".amount").removeAttr("id");
     $('.editing').remove(); 
     $this.removeClass("isEditing");
   } else {
     $this.addClass("isEditing")
-    var $parent = $this.parent(); 
     $parent.children(".type").attr("id", "previousType");
     $parent.children(".amount").attr("id", "previousAmount");
+    $parent.children(".date").attr("id", "previousDate");
+    $parent.children(".note").attr("id", "previousNote");
+
+    editType = $parent.children(".type").text(); 
 
     var $editForm = $('<div>').addClass('row editing');
     var $editNote = $('<div>').addClass('row editing');
@@ -210,7 +215,9 @@ function hitEditConfirm(event){
   //if (true) {};
   console.log("editType: ", editType);
   var $previousType = $("#previousType");
+  console.log("previousType", $previousType.text());
   console.log('previousAmount: ',parseFloat($("#previousAmount") .text().substr(1)) );
+  console.log('previousAmount: ',parseFloat($("#previousAmount") .text() ) );
   var workingBalance = parseFloat(balance);
   console.log("workingBalance", workingBalance);
   if ($previousType.text()==="credit") {
@@ -230,8 +237,13 @@ function hitEditConfirm(event){
   balance = workingBalance.toFixed(2).toString();
   $balance.text(balance);
   editType = '';
-  $(".editing").remove(); 
+  $previousType.removeAttr("id");
+
+
+
+  $("#previousAmount").removeAttr("id");
   $(".isEditing").removeClass(".isEditing");
+  $(".editing").remove(); 
 };
 
 
