@@ -13,7 +13,7 @@ var $body;
 var $removeSelected; 
 var $sortAlpha; 
 var $balance; 
-var balance = 1000; 
+var balance = '1000'; 
 var $showAll;
 var $showCredit;
 var $showDebit;
@@ -21,10 +21,12 @@ var $showDebit;
 // var now = moment().format("MM-DD-YYYY"); 
 
 function init(){
+  var currentDate = moment().format('YYYY-MM-DD');
   $balance = $('#balance');
   $add = $('#add'); 
   $newMessage = $("#newMessage");
   $newDate = $("#newDate");
+  $newDate.attr('min', currentDate);
   $newAmount = $("#newAmount");
   $newCredit = $("#newCredit");
   $newDebit = $("#newDebit");
@@ -68,20 +70,23 @@ function hitAdd(event){
   $toAddRow.append($('<div>').addClass('col-md-5').text($newMessage.val() ) );
   $toAddRow.append($('<div>').addClass('col-md-2').text($newDate.val()) ); 
   $toAddRow.append($('<div>').addClass('col-md-1 type').text( newType) ); 
-  $toAddRow.append($('<div>').addClass('col-md-1 amount').text('$'+$newAmount.val())); 
+  $toAddRow.append($('<div>').addClass('col-md-1 amount').text('$'+(parseFloat($newAmount.val()).toFixed(2))) ); 
   $toAddRow.append($('<input />', { type: 'checkbox'}).addClass('col-md-1 check')); 
   $toAddRow.append($('<div>').addClass('col-md-1 delete').text('\u27F0')); 
   $toAddRow.append($('<div>').addClass('col-md-1 edit').text('\u270E')); 
   
   $body.append($toAddRow);
+  if (newType === 'credit') {
+    balance = (parseFloat(balance) + parseFloat($newAmount.val()) ).toFixed(2).toString();
+    $newCredit.removeClass('pressed');   
+  } else {
+    balance = (parseFloat(balance) - parseFloat($newAmount.val()) ).toFixed(2).toString();
+    $newDebit.removeClass('pressed');
+  }
+  $balance.text(balance);
   $newMessage.val('');
   $newDate.val('');
   $newAmount.val('0.00');
-  if (newType === 'credit') {
-    $newCredit.removeClass('pressed');   
-  } else {
-    $newDebit.removeClass('pressed');    
-  }
   newType = '';
 
 };
