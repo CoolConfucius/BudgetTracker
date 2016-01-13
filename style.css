@@ -5,18 +5,33 @@
 
 }
 
+body {
+  background-color: #65A7D6; 
+}
+
 .btn {
+  background-color: #5ED1CB;
   font-size: 16px;
 }
 
+.btn:hover{
+  background-color: #87E687;
+  font-size: 18px;  
+}
+
 #title{
+  background-color: #4671CF;
+  color: #46CF8F;
   margin-top: 100px; 
   text-align: center;
 }
 
 
 #form{
+  background-color: #87E1E6;
+  margin-top: 5px; 
   border: 1px solid;
+
 }
 
 #form div{
@@ -30,7 +45,8 @@
 }
 
 #form .row span {
- padding-top: 8px;  
+ padding-top: 10px;  
+ padding-left: 10px; 
 }
 
 input{
@@ -54,13 +70,19 @@ input[type=checkbox] {
 
 .strike {
   text-decoration: line-through;
+  background-color: #5ED1CB; 
 }
 
 #body .row {
-  background-color: #ccc;
+  background-color: #C5CCD6;
 }
+
+#form input {
+  background-color: #C5CCD6;
+}
+
 #body .row:nth-child(odd) {
-    background-color: #aaa;   
+    background-color: #AEBEBF;   
 }
 
 .pressed {

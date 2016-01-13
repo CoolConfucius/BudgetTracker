@@ -128,11 +128,6 @@ function hitRemoveSelected(event){
 function hitShowAll(event){
   var $item = $('.item');
   $item.removeClass('hide');
-  // $item.each(function(index){
-  //   if ($item.eq(index).children(".type").text()!=='credit') {
-  //     $item.eq(index).addClass('hide');
-  //   };
-  // })
 };
 
 function hitShowCredit(event){
