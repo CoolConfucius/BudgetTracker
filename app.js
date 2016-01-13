@@ -5,64 +5,126 @@ $(document).ready(init);
 var $add; 
 var $newMessage;
 var $newDate; 
+var $newAmount; 
+var $newCredit; 
+var $newDebit; 
+var newType = ''; 
 var $body; 
-var $removeCom; 
+var $removeSelected; 
 var $sortAlpha; 
-var now = moment(); 
+var $balance; 
+var balance = 1000; 
+var $showAll;
+var $showCredit;
+var $showDebit;
+
+// var now = moment().format("MM-DD-YYYY"); 
 
 function init(){
+  $balance = $('#balance');
   $add = $('#add'); 
   $newMessage = $("#newMessage");
   $newDate = $("#newDate");
   $newAmount = $("#newAmount");
+  $newCredit = $("#newCredit");
+  $newDebit = $("#newDebit");
+  $showAll = $("#showAll");
+  $showCredit = $("#showCredit");
+  $showDebit = $("#showDebit");
   $body = $('#body');
-  $removeCom = $('#removeCom');
+  $removeSelected = $('#removeSelected');
   $sortAlpha = $('#sortAlpha');
   $add.click(hitAdd);
-  $removeCom.click(hitRemoveCom);
+  $newCredit.click(hitNewCredit);
+  $newDebit.click(hitNewDebit);
+  // $showAll.click(hitShowAll);
+  $showCredit.click(hitShowCredit);
+  // $showDebit.click(hitShowDebit);
+  $removeSelected.click(hitRemoveSelected);
   $body.on('click', '.check',(hitCheck)); 
   $body.on('click', '.delete',(hitDelete)); 
   $sortAlpha.click(hitSortAlpha);
 };
 
+function hitNewCredit(event){
+  $newCredit.toggleClass('pressed'); 
+  if ($newDebit.hasClass('pressed')) {
+    $newDebit.removeClass('pressed');
+  };
+  newType = "credit";
+};
+
+function hitNewDebit(event){
+  $newDebit.toggleClass('pressed'); 
+  if ($newCredit.hasClass('pressed')) {
+    $newCredit.removeClass('pressed');
+  };
+  newType = "debit";
+};
+
 function hitAdd(event){
-  console.log('due: ', $newDate.val());
-  var text = $newMessage.val(); 
+  // if (!newType || $newAmount.val() < 0.01) { return };
   var $toAddRow = $('<div>').addClass('row item'); 
-  $toAddRow.append($('<div>').addClass('col-md-5').text(text) );
-  $toAddRow.append($('<div>').addClass('col-md-3').text($newDate.val()) ); 
-  $toAddRow.append($('<input />', { type: 'checkbox'}).addClass('col-md-2 check')); 
-  $toAddRow.append($('<div>').addClass('col-md-2 delete').text('\u27F0')); 
+  $toAddRow.append($('<div>').addClass('col-md-5').text($newMessage.val() ) );
+  $toAddRow.append($('<div>').addClass('col-md-2').text($newDate.val()) ); 
+  $toAddRow.append($('<div>').addClass('col-md-1 type').text( newType) ); 
+  $toAddRow.append($('<div>').addClass('col-md-1 amount').text('$'+$newAmount.val())); 
+  $toAddRow.append($('<input />', { type: 'checkbox'}).addClass('col-md-1 check')); 
+  $toAddRow.append($('<div>').addClass('col-md-1 delete').text('\u27F0')); 
+  $toAddRow.append($('<div>').addClass('col-md-1 edit').text('\u270E')); 
   
   $body.append($toAddRow);
   $newMessage.val('');
   $newDate.val('');
+  $newAmount.val('0.00');
+  if (newType === 'credit') {
+    $newCredit.removeClass('pressed');   
+  } else {
+    $newDebit.removeClass('pressed');    
+  }
+  newType = '';
+
 };
 
 function hitCheck(event){
     var $this = $(this);
     $this.siblings().toggleClass('strike'); 
-    $this.parent().toggleClass('completed');
+    $this.parent().toggleClass('selected');
 };
 
 function hitDelete(event){
   $(this).parent().remove(); 
 };
 
-function hitRemoveCom(event){
-  var $tasks = $('.item');
-  $tasks.each(function(index){
-    if ($tasks.eq(index).hasClass('completed')) {
-      $tasks.eq(index).remove(); 
+function hitRemoveSelected(event){
+  var $item = $('.item');
+  $item.each(function(index){
+    if ($item.eq(index).hasClass('selected')) {
+      $item.eq(index).remove(); 
     };
   });
 };
 
+function hitShowCredit(event){
+  var $item = $('.item');
+  $item.each(function(index){
+    if ($item.eq(index).children('.type').text()!=='credit') {
+      $item.addClass('hide');
+    };
+  })
+  // $newCredit.toggleClass('pressed'); 
+  // if ($newDebit.hasClass('pressed')) {
+  //   $newDebit.removeClass('pressed');
+  // };
+  // newType = "credit";
+};
+
+
 function hitSortAlpha(event){
   var $sortedBody = $('<div>').addClass('container');
-  var $tasks = $('.item');
-  console.log($tasks);
-  $tasks.each(function(index){
+  var $item = $('.item');
+  console.log($item);
+  $item.each(function(index){
     var $sortedRow = $('<div>').addClass('row item');
     $sortedRow.append($('<div>').addClass('col-md-5').text('yolo') );
     $sortedRow.append($('<div>').addClass('col-md-3').text('swag') ); 

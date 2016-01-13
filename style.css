@@ -5,6 +5,10 @@
 
 }
 
+.btn {
+  font-size: 16px;
+}
+
 #title{
   margin-top: 100px; 
   text-align: center;
@@ -57,4 +61,16 @@ input[type=checkbox] {
 }
 #body .row:nth-child(odd) {
     background-color: #aaa;   
+}
+
+.pressed {
+  background-color: #90C3D4; 
+}
+
+.pressed:hover {
+  background-color: #73A8BA; 
+};
+
+.hide {
+  display: none; 
 }

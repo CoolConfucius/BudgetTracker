@@ -16,44 +16,56 @@
   </div>
   <div class="container" id="form">
     <div class="row">
-      <div class="col-sm-3"></div>
-      <div class="col-sm-3">Show</div>
-      <div class="col-sm-3 dropdown">
+      <div class="col-sm-3">Show: </div>
+      <!-- <div class="col-sm-3 dropdown">
         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
           All
           <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-          <li><a href="#" class="filter">Deposits</a></li>
-          <li><a href="#" class="filter">Another action</a></li>
-          <li><a href="#" class="filter">Something else here</a></li>
-          <li><a href="#" class="filter">Separated link</a></li>
+          <li><a href="#" class="filter">Credit</a></li>
+          <li><a href="#" class="filter">Debit</a></li>
         </ul>
-      </div>
-      <div class="col-sm-3"></div>
+      </div> -->
+      <div class="col-sm-3 btn btn-default filter" id="showAll">All</div>
+      <div class="col-sm-3 btn btn-default filter" id="showCredit">Credit</div>
+      <div class="col-sm-3 btn btn-default filter" id="showDebit">Debit</div>
     </div>
     <div class="row">
-      <span class="col-sm-1">Amount:</span>
-      <input class="col-sm-1" type="number" id="newAmount">
-      <span class="col-sm-1">Date:</span>
-      <input class="col-sm-2" type="date" id="newDate">
+      <span class="col-sm-1">Type:</span>
+      <!-- <div class="col-sm-2 dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+          <li><a href="#">Credit</a></li>
+          <li><a href="#">Debit</a></li>
+        </ul>
+      </div> -->
+      <div class="col-sm-1 btn btn-default" id="newCredit">Credit</div>
+      <div class="col-sm-1 btn btn-default" id="newDebit">Debit</div>
+      <span class="col-sm-2">Amount:</span>
+      <input class="col-sm-2" type="number" step="0.01" value="0.00" min="0.00" id="newAmount">
+      <span class="col-sm-2">Date:</span>
+      <input class="col-sm-3" type="date" id="newDate">
     </div>
     <div class="row">
-      <span class="col-sm-1">Message:</span>
+      <span class="col-sm-1">Note:</span>
       <input class="col-sm-11" type="text" id="newMessage">      
     </div>
     <div class="row">
-      <div class="col-sm-6" id="removeCom">remove selected</div>      
-      <div class="col-sm-6" id="add">Add Transaction</div>      
+      <div class="col-sm-6 btn btn-default" id="removeSelected">Remove Selected</div>      
+      <div class="col-sm-6 btn btn-default" id="add">Add Transaction</div>      
     </div>
   </div>
   <div class="container" id="labels">
     <div class="row">
       <div class="col-sm-5" id="sortAlpha">Transaction</div>
-      <div class="col-sm-3">Date</div>
-      <div class="col-sm-2">Amount</div>
+      <div class="col-sm-2">Date</div>
+      <div class="col-sm-1">Type</div>
+      <div class="col-sm-1">Amount</div>
       <div class="col-sm-1">Select</div>
       <div class="col-sm-1">Remove</div>
+      <div class="col-sm-1">Edit</div>
     </div>
   </div>
   <div class="container" id="body"></div>
