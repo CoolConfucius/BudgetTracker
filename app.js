@@ -192,7 +192,7 @@ function hitEditCredit(event){
   if ($editDebit.hasClass('pressed')) {
     $editDebit.removeClass('pressed');
   };
-  editType = "debit";
+  editType = "credit";
 };
 
 function hitEditDebit(event){
@@ -208,14 +208,17 @@ function hitEditDebit(event){
 
 function hitEditConfirm(event){
   //if (true) {};
+  console.log("editType: ", editType);
+  var $previousType = $("#previousType");
   console.log('previousAmount: ',parseFloat($("#previousAmount") .text().substr(1)) );
   var workingBalance = parseFloat(balance);
   console.log("workingBalance", workingBalance);
-  if ($("#previousType").text()==="credit") {
+  if ($previousType.text()==="credit") {
     workingBalance -= parseFloat($("#previousAmount") .text().substr(1));
   } else {
     workingBalance += parseFloat($("#previousAmount") .text().substr(1));
   }
+  $previousType.text(editType);
   console.log("workingBalance", workingBalance);
   if (editType==="credit") {
     workingBalance += parseFloat($('#editAmount').val()) ;
