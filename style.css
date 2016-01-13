@@ -73,7 +73,7 @@ input[type=checkbox] {
   background-color: #5ED1CB; 
 }
 
-#body .row {
+#body .item {
   background-color: #C5CCD6;
 }
 
@@ -81,7 +81,7 @@ input[type=checkbox] {
   background-color: #C5CCD6;
 }
 
-#body .row:nth-child(odd) {
+#body .item:nth-child(odd) {
     background-color: #AEBEBF;   
 }
 
@@ -97,9 +97,12 @@ input[type=checkbox] {
   display: none; 
 }
 
-#body .editing span{
+.editing{
   background-color: #CFE89E;
 }
-#body .editing{
+.editing span{
   background-color: #CFE89E;
 }
+/*#body .editing input{
+  background-color: #CFE89E;
+}*/
