@@ -220,7 +220,6 @@ function hitEditDebit(event){
 
 
 function hitEditConfirm(event){
-  //if (true) {};
   console.log("editType: ", editType);
   var $previousType = $("#previousType");
   var $previousAmount = $("#previousAmount");
@@ -238,10 +237,8 @@ function hitEditConfirm(event){
   console.log("workingBalance", workingBalance);
   if (editType==="credit") {
     workingBalance += parseFloat($('#editAmount').val()) ;
-    // workingBalance += parseFloat(editAmount) ;
   } else {
     workingBalance -= parseFloat($('#editAmount').val()) ;
-    // workingBalance -= parseFloat(editAmount) ;
   }
   console.log("editAmount: ", $('#editAmount').val());
   console.log("workingBalance", workingBalance);
@@ -252,14 +249,8 @@ function hitEditConfirm(event){
   $balance.text(balance);
   console.log("neweditamount: ", editAmount);
   $("#previous").children(".type").text(editType);
-  // $("#previous").children(".amount").text(editAmount);
   $("#previous").children(".date").text(editDate);
   $("#previous").children(".note").text(editNote);
-
-
-  // editType = '';
-  // $previousType.removeAttr("id");
-
 
 
 
