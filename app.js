@@ -113,19 +113,27 @@ function hitDelete(event){
 
 function hitEdit(event){
   var $this = $(this);
-  $this.addClass()
-  var $parent = $this.parent(); 
-  var $editForm = $('<div>').addClass('row');
-  var $editNote = $('<div>').addClass('row');
-  $editForm.append($('<span>').addClass('col-sm-1').text('Type:'));
-  $editForm.append($('<div>').addClass('col-sm-1 btn btn-default').text('Credit').attr("id", "editCredit"));
-  $editForm.append($('<div>').addClass('col-sm-1 btn btn-default').text('Debit').attr("id", "editDebit"));
-  $editForm.append($('<span>').addClass('col-sm-2').text('Amount:'));
-  $editForm.append($('<input>').addClass('col-sm-2').attr({type: "number", step: "0.01", value: "0.00", min: "0.00", id: "editAmount"} ) );
-  $editForm.append($('<span>').addClass('col-sm-2').text('Date:'));
-  $editForm.append($('<input>').addClass('col-sm-3').attr({type: "date", id: "editDate"} ) );
-
-  $this.after($editForm);
+  if ($this.hasClass("isEditing")) {
+    $('.editing').remove(); 
+    $this.removeClass("isEditing");
+  } else {
+    $this.addClass("isEditing")
+    var $parent = $this.parent(); 
+    var $editForm = $('<div>').addClass('row editing');
+    var $editNote = $('<div>').addClass('row editing');
+    $editForm.append($('<span>').addClass('col-sm-1').text('Type:'));
+    $editForm.append($('<div>').addClass('col-sm-1 btn btn-default').text('Credit').attr("id", "editCredit"));
+    $editForm.append($('<div>').addClass('col-sm-1 btn btn-default').text('Debit').attr("id", "editDebit"));
+    $editForm.append($('<span>').addClass('col-sm-1 col-sm-offset-1').text('Amount:'));
+    $editForm.append($('<input>').addClass('col-sm-2').attr({type: "number", step: "0.01", value: "0.00", min: "0.00", id: "editAmount"} ) );
+    $editForm.append($('<span>').addClass('col-sm-1 col-sm-offset-1').text('Date:'));
+    $editForm.append($('<input>').addClass('col-sm-3').attr({type: "date", id: "editDate"} ) );
+    $editNote.append($('<span>').addClass('col-sm-1').text('Note:'));
+    $editNote.append($('<input>').addClass('col-sm-9').attr({type: "text", id: "editNote"} ) );
+    $editNote.append($('<div>').addClass('col-sm-1 btn btn-default').text('Confirm').attr("id", "editConfirm"));
+    $parent.after($editForm, $editNote);
+    
+  }
 
   // console.log("parseFloat: ", parseFloat($parent.children(".amount").text().substr(1)));
   // if ($parent.children(".type").text()==="credit") {

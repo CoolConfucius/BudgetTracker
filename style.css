@@ -96,3 +96,10 @@ input[type=checkbox] {
 .hide {
   display: none; 
 }
+
+#body .editing span{
+  background-color: #CFE89E;
+}
+#body .editing{
+  background-color: #CFE89E;
+}
