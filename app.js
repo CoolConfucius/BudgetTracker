@@ -98,13 +98,28 @@ function hitCheck(event){
 };
 
 function hitDelete(event){
-  $(this).parent().remove(); 
+  var $this = $(this);
+  var $parent = $this.parent(); 
+  console.log("parseFloat: ", parseFloat($parent.children(".amount").text().substr(1)));
+  if ($parent.children(".type").text()==="credit") {
+    balance = (parseFloat(balance) - parseFloat($parent.children(".amount").text().substr(1)) ).toFixed(2).toString();
+  } else {
+    balance = (parseFloat(balance) + parseFloat($parent.children(".amount").text().substr(1)) ).toFixed(2).toString();
+  }
+  $balance.text(balance);
+  $this.parent().remove(); 
 };
 
 function hitRemoveSelected(event){
   var $item = $('.item');
   $item.each(function(index){
     if ($item.eq(index).hasClass('selected')) {
+      if ($item.eq(index).children(".type").text()==="credit") {
+        balance = (parseFloat(balance) - parseFloat($item.eq(index).children(".amount").text().substr(1)) ).toFixed(2).toString();
+      } else {
+        balance = (parseFloat(balance) + parseFloat($item.eq(index).children(".amount").text().substr(1)) ).toFixed(2).toString();
+      }
+      $balance.text(balance);
       $item.eq(index).remove(); 
     };
   });
