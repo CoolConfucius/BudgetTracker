@@ -245,7 +245,11 @@ function hitEditConfirm(event){
 
 
 
-  $("#previousAmount").removeAttr("id");
+  $previousType.removeAttr("id");
+  $previousAmount.removeAttr("id");
+  $("#previousDate").removeAttr("id");
+  $("#previousNote").removeAttr("id");
+  $("#previous").removeAttr("id"); 
   $(".isEditing").removeClass(".isEditing");
   $(".editing").remove(); 
 
