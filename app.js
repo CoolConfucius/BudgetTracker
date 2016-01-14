@@ -244,6 +244,8 @@ function hitEditConfirm(event){
   balance = workingBalance.toFixed(2).toString();
   $balance.text(balance);
   $previousType.text(editType);
+  editDate = $("#editDate").val();
+  editNote = $("#editNote").val();
   $("#previousDate").text(editDate);
   $("#previousNote").text(editNote);
 
