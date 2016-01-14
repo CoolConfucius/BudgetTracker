@@ -70,7 +70,10 @@ function hitNewDebit(event){
 };
 
 function hitAdd(event){
-  if (!newType || $newAmount.val() < 0.01) { return };
+  if (!newType || $newAmount.val() < 0.01) { 
+    alert("select a type and enter a valid amount.");
+    return; 
+  };
   var $toAddRow = $('<div>').addClass('row item'); 
   $toAddRow.append($('<div>').addClass('col-md-5 note').text($newNote.val() ) );
   $toAddRow.append($('<div>').addClass('col-md-2 date').text($newDate.val()) ); 
