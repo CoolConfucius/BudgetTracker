@@ -106,6 +106,7 @@ function hitCheck(event){
 };
 
 function hitDelete(event){
+  if (editingTransaction) { alert("Finish editing your transaction or close the edit form"); return; };
   var $this = $(this);
   var $parent = $this.parent(); 
   if ($parent.children(".type").text()==="credit") {
@@ -118,6 +119,7 @@ function hitDelete(event){
 };
 
 function hitRemoveSelected(event){
+  if (editingTransaction) { alert("Finish editing your transaction or close the edit form"); return; };
   var $item = $('.item');
   $item.each(function(index){
     if ($item.eq(index).hasClass('selected')) {
