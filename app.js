@@ -221,7 +221,6 @@ function hitEditDebit(event){
   editType = "debit";
 };
 
-
 function hitEditConfirm(event){
   var $previousType = $("#previousType");
   var $previousAmount = $("#previousAmount");
@@ -240,7 +239,6 @@ function hitEditConfirm(event){
 
   $previousAmount.text('$'+$('#editAmount').val().toString());
 
-
   balance = workingBalance.toFixed(2).toString();
   $balance.text(balance);
   $previousType.text(editType);
@@ -248,9 +246,6 @@ function hitEditConfirm(event){
   editNote = $("#editNote").val();
   $("#previousDate").text(editDate);
   $("#previousNote").text(editNote);
-
-
-
 
   $previousType.removeAttr("id");
   $previousAmount.removeAttr("id");
@@ -262,9 +257,6 @@ function hitEditConfirm(event){
 
   editingTransaction = false; 
 };
-
-
-
 
 function hitSortAlpha(event){
   var $sortedBody = $('<div>').addClass('container');
