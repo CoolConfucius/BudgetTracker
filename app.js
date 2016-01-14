@@ -106,6 +106,7 @@ function hitCheck(event){
 };
 
 function hitDelete(event){
+  if (editingTransaction) { alert("Finish editing your transaction or close the edit form"); return; };
   var $this = $(this);
   var $parent = $this.parent(); 
   if ($parent.children(".type").text()==="credit") {
@@ -118,6 +119,7 @@ function hitDelete(event){
 };
 
 function hitRemoveSelected(event){
+  if (editingTransaction) { alert("Finish editing your transaction or close the edit form"); return; };
   var $item = $('.item');
   $item.each(function(index){
     if ($item.eq(index).hasClass('selected')) {
@@ -219,7 +221,6 @@ function hitEditDebit(event){
   editType = "debit";
 };
 
-
 function hitEditConfirm(event){
   var $previousType = $("#previousType");
   var $previousAmount = $("#previousAmount");
@@ -238,15 +239,13 @@ function hitEditConfirm(event){
 
   $previousAmount.text('$'+$('#editAmount').val().toString());
 
-
   balance = workingBalance.toFixed(2).toString();
   $balance.text(balance);
   $previousType.text(editType);
+  editDate = $("#editDate").val();
+  editNote = $("#editNote").val();
   $("#previousDate").text(editDate);
   $("#previousNote").text(editNote);
-
-
-
 
   $previousType.removeAttr("id");
   $previousAmount.removeAttr("id");
@@ -258,9 +257,6 @@ function hitEditConfirm(event){
 
   editingTransaction = false; 
 };
-
-
-
 
 function hitSortAlpha(event){
   var $sortedBody = $('<div>').addClass('container');
